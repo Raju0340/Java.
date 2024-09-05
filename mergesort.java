@@ -1,50 +1,45 @@
-import java.util.Arrays;
-
 public class mergesort {
+    
+   public static void MergeSort(int[] arr,int si,int ei){
+    int mid =( si+ei )/ 2;
+      if(si>=ei){
+    return;
+   }
+    MergeSort(arr, si, mid);
+    MergeSort(arr, mid+1, ei);
+    Merge(arr,si,mid,ei);
+   }
+
+    private static void Merge(int[] arr, int mid ,int si, int ei) {
+        int [] temp = new int[arr.length+1];
+        int i = si;
+        int j = mid;
+        int k=0;
+       while(i<=mid && j<=ei){
+        if(arr[i]<arr[j]){
+            temp[k] = arr[i]; 
+        i++;      }
+         else{
+             temp[k] = arr[j];
+             j++;
+         }
+         k++;
+
+       }
+       while(i<=mid){
+        temp[k++]=arr[i++];
+       }
+       while(j<=ei){
+        temp[k++]=arr[j++];
+       }
+
+  for(int z =0 ;z<temp.length;z++){
+    System.out.println(temp[z]);
+  }
+
+    }
     public static void main(String[] args) {
-     int [] arr = {5,4,3,1,2};
-     System.out.println(Arrays.toString(mergeSort(arr))); 
-
-        
-    } 
-   static int[] mergeSort(int[] arr){
-        if(arr.length == 1){
-          return  arr;
-        } 
-        int mid = arr.length/2;
-        int []left = mergeSort(Arrays.copyOfRange(arr, 0, mid));
-        int [] right = mergeSort(Arrays.copyOfRange(arr,mid,arr.length));
-        return merge(left,right);
-        }
-
-        
-       static int [] merge(int[] first,int[] second){
-        int []mix = new int[first.length + second.length]; 
-        int i=0,j=0,k=0;
-        while(i<first.length && j<second.length){
-            if(first[i]<second[j]){
-                mix[k]=first[i];
-                i++;
-            }
-            else{
-                mix[k]=second[j];
-                j++;
-            }
-            k++;
-        }
-       while(i<first.length){
-        mix[k]=first[i];
-        i++;
-        k++;
-       }
-       while(j<second.length){
-        mix[k]=second[j];
-        j++;
-        k++;
-       }
-return mix;
-        }
-        
-       }
-
-
+       int[] arr = {4,5,1,2,3};
+       MergeSort(arr,0,arr.length);
+    }
+}
